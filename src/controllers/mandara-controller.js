@@ -71,7 +71,7 @@ exports.getMandaraById = async (req, res, next) => {
     res.status(HttpStatus.OK).send({
       status: HttpStatus.OK,
       message: "만다라 조회에 성공하였습니다.",
-      data: result,
+      data: result[0],
     });
   } catch (err) {
     err.links = [
