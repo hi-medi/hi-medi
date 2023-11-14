@@ -1,3 +1,5 @@
+const { modelNames } = require("mongoose");
+
 exports.createMandara = (Model, mandaraUrl) => {
   return new Promise((resolve, reject) => {
     console.log("야야야양");
@@ -9,11 +11,57 @@ exports.createMandara = (Model, mandaraUrl) => {
     mandara
       .save()
       .then((data) => {
-        console.log(data);
+        console.log("mandara-repository createMandara data : ", data);
         resolve(data);
       })
       .catch((err) => {
-        console.error(err);
+        console.error("mandara-repository createMandara err : ", err);
+        reject(err);
+      });
+  });
+};
+
+exports.countAllMandaras = (Model) => {
+  return new Promise((resolve, reject) => {
+    Model.countDocuments()
+      .then((data) => {
+        console.log("mandara-repository countAllMandaras data : ", data);
+        resolve(data);
+      })
+      .catch((err) => {
+        console.error("mandara-repository countAllMandaras err : ", err);
+        reject(err);
+      });
+  });
+};
+
+exports.getAllMandaras = (Model, paginationDTO) => {
+  return new Promise((resolve, reject) => {
+    Model.find()
+      .sort({ createDate: -1 })
+      .skip(paginationDTO.startIndex)
+      .limit(paginationDTO.limit)
+      .then((data) => {
+        console.log("mandara-repository getAllMandaras data : ", data);
+        resolve(data);
+      })
+      .catch((err) => {
+        console.error("mandara-repository getAllMandaras err : ", err);
+        reject(err);
+      });
+  });
+};
+
+exports.getMandaraById = (Model, id) => {
+  return new Promise((resolve, reject) => {
+    console.log(id);
+    Model.find({ _id: id })
+      .then((data) => {
+        console.log("mandara-repository getMandaraById data : ", data);
+        resolve(data);
+      })
+      .catch((err) => {
+        console.error("mandara-repository getMandaraById err : ", err);
         reject(err);
       });
   });

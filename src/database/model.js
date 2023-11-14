@@ -3,8 +3,8 @@ const mongoose = require("mongoose");
 const getModel = () => {
   const mandaraScript = mongoose.Schema(
     {
-      url: "string",
-      createDate: "string",
+      url: String,
+      createDate: Date,
     },
     { versionKey: false }
   );
