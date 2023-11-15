@@ -39,7 +39,7 @@ exports.getAllMandaras = (Model, paginationDTO) => {
   return new Promise((resolve, reject) => {
     Model.find()
       .sort({ createDate: -1 })
-      .skip(paginationDTO.startIndex)
+      .skip(paginationDTO.offset)
       .limit(paginationDTO.limit)
       .then((data) => {
         console.log("mandara-repository getAllMandaras data : ", data);
@@ -62,6 +62,18 @@ exports.getMandaraById = (Model, id) => {
       })
       .catch((err) => {
         console.error("mandara-repository getMandaraById err : ", err);
+        reject(err);
+      });
+  });
+};
+
+exports.deleteMandaraAtMidnight = (Model, target) => {
+  return new Promise((resolve, reject) => {
+    Model.deleteMany({ createDate: { $lt: target } })
+      .then((data) => {
+        resolve(data);
+      })
+      .catch((err) => {
         reject(err);
       });
   });

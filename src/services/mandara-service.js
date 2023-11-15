@@ -2,6 +2,7 @@ const getModel = require("../database/model");
 const MandaraRepository = require("../repositories/mandara-repository");
 const HttpStatus = require("http-status");
 const Model = getModel();
+const minusMonth = 1;
 
 exports.createMandara = (mandaraUrl) => {
   return new Promise(async (resolve, reject) => {
@@ -74,6 +75,30 @@ exports.getMandaraById = (id) => {
         const error = new Error("만다라 조회에 실패하였습니다.");
         error.status = HttpStatus.BAD_REQUEST;
         reject(err);
+      }
+    } catch (err) {
+      reject(err);
+    }
+  });
+};
+
+exports.deleteMandaraAtMidnight = () => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const date = new Date();
+      date.setDate(data.getMonth() - minusMonth);
+      const target = date.toISOString().split("T")[0];
+
+      const result = await MandaraRepository.deleteMandaraAtMidnight(
+        Model,
+        target
+      );
+      if (result) {
+        resolve(result);
+      }
+      if (!result) {
+        const error = new Error("오래된 만다라가 존재하지 않습니다.");
+        reject(error);
       }
     } catch (err) {
       reject(err);

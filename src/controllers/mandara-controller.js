@@ -4,8 +4,8 @@ const HttpStatus = require("http-status");
 
 exports.createMandara = async (req, res, next) => {
   try {
-    const mandaraImageUrl = req.file.location;
-    console.log(mandaraImageUrl);
+    const mandaraImageUrl = req.body.url;
+    // const mandaraImageUrl = req.file.location;
     const result = await MandaraService.createMandara(mandaraImageUrl);
     console.log("mandara controller createMandara 결과 : ", result);
     res.status(HttpStatus.CREATED).send({
@@ -36,7 +36,7 @@ exports.getAllMandaras = async (req, res, next) => {
     const totalPosts = await MandaraService.countAllMandaras();
     const totalPages = Math.ceil(totalPosts / limit);
 
-    const paginationDTO = new PaginationDTO(startIndex, limit);
+    const paginationDTO = new PaginationDTO(offset, limit);
 
     // 응답
     const result = await MandaraService.getAllMandaras(paginationDTO);
@@ -82,5 +82,14 @@ exports.getMandaraById = async (req, res, next) => {
       },
     ];
     next(err);
+  }
+};
+
+exports.deleteMandaraAtMidnight = async () => {
+  try {
+    const result = await MandaraService.deleteMandaraAtMidnight();
+    console.log(result);
+  } catch (err) {
+    console.error(err);
   }
 };

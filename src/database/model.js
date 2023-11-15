@@ -4,7 +4,7 @@ const getModel = () => {
   const mandaraScript = mongoose.Schema(
     {
       url: String,
-      createDate: Date,
+      createDate: String,
     },
     { versionKey: false }
   );

@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const morgan = require("morgan");
 const app = express();
+const path = require("path");
 const mongoose = require("./src/config/db-config");
 const HttpStatus = require("http-status");
 
@@ -15,9 +16,8 @@ app.use((req, res, next) => {
   }
   next();
 });
-app.get("/", (req, res, next) => {
-  res.sendFile(__dirname + "/index.html");
-});
+
+app.use(express.static(path.resolve(__dirname, "./client/build")));
 
 const mandaraRouter = require("./src/routes/mandara-route");
 app.use("/api/v1/mandara", mandaraRouter);
@@ -29,6 +29,10 @@ app.use((err, req, res, next) => {
     message: err.message,
     links: err.links,
   });
+});
+
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "./client/build", "index.html"));
 });
 
 app.listen(process.env.PORT, () => console.log("Listening on port 9000!"));

@@ -1,9 +1,9 @@
 class PaginationDTO {
-  startIndex;
+  offset;
   limit;
 
-  constructor(startIndex, limit) {
-    this.startIndex = startIndex;
+  constructor(offset, limit) {
+    this.offset = offset;
     this.limit = limit;
   }
 }
