@@ -4,8 +4,8 @@ const HttpStatus = require("http-status");
 
 exports.createMandara = async (req, res, next) => {
   try {
-    const mandaraImageUrl = req.body.url;
-    // const mandaraImageUrl = req.file.location;
+    // const mandaraImageUrl = req.body.url;
+    const mandaraImageUrl = req.file.location;
     const result = await MandaraService.createMandara(mandaraImageUrl);
     console.log("mandara controller createMandara 결과 : ", result);
     res.status(HttpStatus.CREATED).send({
