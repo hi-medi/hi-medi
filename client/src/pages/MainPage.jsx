@@ -27,7 +27,7 @@ const MainPage = () => {
     console.log("page: ", currentPage.current);
     axios
       .get(
-        `http://localhost:9000/api/v1/mandara?currentPage=${currentPage.current}&limit=${limit}`
+        `${process.env.REACT_APP_API_URL}/api/v1/mandara?currentPage=${currentPage.current}&limit=${limit}`
       )
       .then((resp) => {
         console.log(resp);

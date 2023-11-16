@@ -3,18 +3,19 @@ const express = require("express");
 const morgan = require("morgan");
 const app = express();
 const path = require("path");
-const mongoose = require("./src/config/db-config");
+const cors = require("cors")
+const Mongoose = require("./src/config/db-config");
 const HttpStatus = require("http-status");
 
 app.use(morgan("dev"));
 app.use(express.json());
+app.use(cors());
 
 app.use((req, res, next) => {
-  if (mongoose.connection.readyState !== 1) {
+  if (Mongoose.connection.readyState !== 1) {
     const error = new Error("DB 연결에 실패하였습니다.");
     next(error);
-  }
-  next();
+  } else {next();}
 });
 
 app.use(express.static(path.resolve(__dirname, "./client/build")));
@@ -35,4 +36,4 @@ app.get("*", (req, res) => {
   res.sendFile(path.resolve(__dirname, "./client/build", "index.html"));
 });
 
-app.listen(process.env.PORT, () => console.log("Listening on port 9000!"));
+app.listen(process.env.PORT, () => console.log(`Listening on port ${process.env.PORT}!`));
