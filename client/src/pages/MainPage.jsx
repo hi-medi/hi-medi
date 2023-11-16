@@ -55,7 +55,7 @@ const MainPage = () => {
 
   return (
     <>
-      <Container>
+      <Container style={{ marginTop: "20px" }}>
         <Row>
           {list &&
             list.map((item, index) => (
