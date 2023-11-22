@@ -67,7 +67,9 @@ const MainPage = () => {
                     className="card-image-top"
                   />
                   <Card.Body>
-                    <Card.Text>{item.createDate}</Card.Text>
+                    <Card.Title>{item.userName}</Card.Title>
+                    <Card.Text>{item.comment}</Card.Text>
+                    <Card.Footer>{item.createDate}</Card.Footer>
                   </Card.Body>
                 </Card>
               </Col>

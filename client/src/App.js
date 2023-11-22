@@ -8,6 +8,7 @@ function App() {
       <Layout />
       <Routes>
         <Route path="/" element={<MainPage />} />
+        <Route path="/detail" elelment={<DetailPage />} />
       </Routes>
     </BrowserRouter>
   );
