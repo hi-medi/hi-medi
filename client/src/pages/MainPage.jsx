@@ -48,7 +48,14 @@ const MainPage = () => {
       if (loading) return;
 
       // setPage(page + 1);
-      getList();
+      if (currentPage.current === 1) {
+        getList();
+      } else {
+      setTimeout( () => {
+        console.log("Wait a minute");
+        getList();
+      }, 500)
+    };
       currentPage.current += 1; // 이렇게 해줘야 page 숫자가 올라간다.
     });
   });
