@@ -1,0 +1,18 @@
+/* CardModal.css */
+.comment-container {
+  display: block;
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.date-container {
+  text-align: right;
+}
+
+.date-text {
+  font-size: 1rem;
+}

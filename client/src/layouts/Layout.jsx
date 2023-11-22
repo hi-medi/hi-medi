@@ -15,7 +15,7 @@ const Layout = () => {
           height="40"
           className="d-inline-block align-center"
           alt="React Bootstrap logo"
-          onClick={() => window.location.reload()}
+          onClick={() => window.location.replace("/")}
         />
       </Navbar.Brand>
     </Navbar>

@@ -4,10 +4,11 @@ const HttpStatus = require("http-status");
 const Model = getModel();
 const minusMonth = 1;
 
-exports.createMandara = (mandaraUrl) => {
+exports.createMandara = (mandaraDTO) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const result = await MandaraRepository.createMandara(Model, mandaraUrl);
+      console.log("mandara service 단 진입!", mandaraDTO);
+      const result = await MandaraRepository.createMandara(Model, mandaraDTO);
       console.log(result);
       if (result) {
         resolve(result);

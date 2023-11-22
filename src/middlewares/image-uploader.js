@@ -21,6 +21,7 @@ const uploadImage = multer({
     bucket: process.env.AWS_BUCKET_NAME,
     contentType: multerS3.AUTO_CONTENT_TYPE,
     key: (req, file, callback) => {
+      console.log("여기까지 온다", file);
       if (!file) {
         return callback(new Error("사진을 한 장 업로드 해주세요."));
       }

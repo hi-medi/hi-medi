@@ -1,12 +1,17 @@
 const MandaraService = require("../services/mandara-service");
 const PaginationDTO = require("../dto/pagination-dto");
+const MandaraDTO = require("../dto/mandara-dto");
 const HttpStatus = require("http-status");
 
 exports.createMandara = async (req, res, next) => {
   try {
-    // const mandaraImageUrl = req.body.url;
+    console.log("res.file", res.file);
+    console.log("mandara createMandara 진입!", req.body);
     const mandaraImageUrl = req.file.location;
-    const result = await MandaraService.createMandara(mandaraImageUrl);
+    const userName = req.body.userName;
+    const comment = req.body.comment;
+    const mandaraDTO = new MandaraDTO(mandaraImageUrl, userName, comment);
+    const result = await MandaraService.createMandara(mandaraDTO);
     console.log("mandara controller createMandara 결과 : ", result);
     res.status(HttpStatus.CREATED).send({
       status: HttpStatus.CREATED,

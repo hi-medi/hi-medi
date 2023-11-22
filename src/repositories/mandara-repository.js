@@ -1,10 +1,12 @@
 const { modelNames } = require("mongoose");
 
-exports.createMandara = (Model, mandaraUrl) => {
+exports.createMandara = (Model, mandaraDTO) => {
   return new Promise((resolve, reject) => {
     console.log("야야야양");
     const mandara = new Model({
-      url: mandaraUrl,
+      url: mandaraDTO.mandaraImageUrl,
+      userName: mandaraDTO.userName,
+      comment: mandaraDTO.comment,
       createDate: new Date().toISOString().split("T")[0],
     });
     console.log("모델 : ", mandara);

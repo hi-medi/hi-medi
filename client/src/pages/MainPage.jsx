@@ -5,6 +5,8 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
+import { useNavigate } from "react-router-dom";
+import CardModal from "../components/CardModal";
 
 const MainPage = () => {
   const target = useRef(null);
@@ -13,6 +15,9 @@ const MainPage = () => {
   const currentPage = useRef(1);
   const totalPages = useRef(100);
   const limit = 9;
+  const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(null);
 
   useEffect(() => {
     observer.observe(target.current);
@@ -47,18 +52,33 @@ const MainPage = () => {
       if (!entry.isIntersecting) return;
       if (loading) return;
 
-      // setPage(page + 1);
       if (currentPage.current === 1) {
         getList();
       } else {
-      setTimeout( () => {
-        console.log("Wait a minute");
-        getList();
-      }, 500)
-    };
+        setTimeout(() => {
+          console.log("Wait a minute");
+          getList();
+        }, 500);
+      }
       currentPage.current += 1; // 이렇게 해줘야 page 숫자가 올라간다.
     });
   });
+
+  const handleClose = () => setShowModal(false);
+  const gotoDetail = (item) => {
+    setSelectedItem(item);
+    setShowModal(true);
+  };
+  // const gotoDetail = ({ item }) => {
+  //   navigate("/detail", {
+  //     state: {
+  //       url: `${item.url}`,
+  //       userName: `${item.userName}`,
+  //       comment: `${item.comment}`,
+  //       createDate: `${item.createDate}`,
+  //     },
+  //   });
+  // };
 
   return (
     <>
@@ -67,7 +87,7 @@ const MainPage = () => {
           {list &&
             list.map((item, index) => (
               <Col xs={10} md={4} key={index} className="mx-auto mb-4">
-                <Card className="card">
+                <Card className="card" onClick={() => gotoDetail(item)}>
                   <Card.Img
                     src={item.url}
                     alt="만다라 이미지"
@@ -76,7 +96,7 @@ const MainPage = () => {
                   <Card.Body>
                     <Card.Title>{item.userName}</Card.Title>
                     <Card.Text>{item.comment}</Card.Text>
-                    <Card.Footer>{item.createDate}</Card.Footer>
+                    <Card.Text>{item.createDate}</Card.Text>
                   </Card.Body>
                 </Card>
               </Col>
@@ -84,6 +104,13 @@ const MainPage = () => {
         </Row>
       </Container>
       <div id="scrollEnd" ref={target}></div>
+      {selectedItem && (
+        <CardModal
+          show={showModal}
+          handleClose={handleClose}
+          item={selectedItem}
+        />
+      )}
     </>
   );
 };
